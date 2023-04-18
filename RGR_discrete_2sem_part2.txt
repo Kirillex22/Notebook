@@ -1,0 +1,66 @@
+namespace РГР_Ч2
+{
+    internal class Program{
+        static double BellmanFord(int[,] graph, double[] weights, int V, int E, int src, int destination){
+            double[] dis = new double[V];
+            for (int i = 0; i < V; i++)
+                dis[i] = 9999999;
+            dis[src] = 0;
+            for (int i = 0; i < V - 1; i++)
+                for (int j = 0; j < E; j++){
+                    dis[graph[j, 1]] = Math.Min(dis[graph[j, 1]], dis[graph[j, 0]] + weights[j]);
+                    dis[graph[j, 0]] = Math.Min(dis[graph[j, 0]], dis[graph[j, 1]] + weights[j]);
+                }
+            return dis[destination];
+        }
+        static void Main(string[] args){
+            string input;
+            string quite = " ";
+            double answer;
+            int[,] graph = { { 0, 1 }, { 0, 2 }, { 0, 3 }, { 1, 0 }, 
+                           { 1, 2 }, { 1, 3 }, { 2, 0 }, { 2, 1 }, { 2, 3 }, 
+                           { 3, 0 }, { 3, 1 }, { 3, 2 } };
+            double[] weights = { 0.13, 0.14, 0.15, 0.08, 0.13, 0.08,
+                                0.17, 0.12, 0.18, 0.10, 0.06, 0.13 };
+            int V = 4;
+            int E = 12;
+            int src = 0;
+            int destination = 3;
+            double k = BellmanFord(graph, weights, V, E, src, destination);
+            while (quite != ""){
+                Console.Clear();
+                Console.WriteLine("\tВведите объем нефти(м^3), перекачиваемый по маршруту A --> Г");
+                Console.WriteLine("\tСправка об авторе --- введите 'author'");
+                Console.WriteLine("\tВыход --------------- нажмите enter");
+                input = Console.ReadLine();
+                switch (input)
+                {
+                    case "author":
+                        Console.Clear();
+                        Console.WriteLine("Работу выполнил студент группы МО-221 Зябрев Кирилл Сергеевич. Реализовано при помощи алгоритма Беллмана-Форда.");
+                        Console.ReadKey();
+                        break;
+                    case "":
+                        quite = "";
+                        break;
+                    default:
+                        try{
+                            Console.Clear();
+                            if (k == 9999999)
+                                answer = -1;
+                            else
+                                answer = double.Parse(input) * k;
+                            Console.WriteLine("Время перекачки составит {0} условных единиц", answer);
+                            Console.ReadKey();
+                        }
+                        catch{
+                            Console.Clear();
+                            Console.WriteLine("Ошибка ввода. Проверьте правильность введенных данных.");
+                            Console.ReadKey();
+                        }
+                        break;
+                }    
+            }
+        }
+    }
+}
