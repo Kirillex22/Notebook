@@ -5,10 +5,10 @@ namespace РГР_Ч2
         public static double Func(int min, double v, string signature)
         {
             switch (signature){
-                case "x":
-                    return (144 * min - 21 * (v - min) + 336 * v) / 5040;
                 case "y":
-                    return (144 * (v - min) - 21 * min + 336 * v)/5040;
+                    return (1391 * min + 26 * (v - min) + 2704 * v) /27300;
+                case "z":
+                    return (1391 * (v - min) + 26 * min + 2704 * v)/27300;
                 default:
                     return 0;
             }
@@ -21,8 +21,8 @@ namespace РГР_Ч2
             while (count < v)
             {
                 count += e;
-                mins.Add(Func(count, v, "x"));
-                mins.Add(Func(count, v, "y"));          
+                mins.Add(Func(count, v, "y"));
+                mins.Add(Func(count, v, "z"));          
             }
             return mins.Min();   
         }
@@ -44,7 +44,7 @@ namespace РГР_Ч2
                 {
                     case "author":
                         Console.Clear();
-                        Console.WriteLine("Работу выполнил студент группы МО-221 Зябрев Кирилл Сергеевич. Реализовано при помощи алгоритма Беллмана-Форда.");
+                        Console.WriteLine("Работу выполнил студент группы МО-221 Зябрев Кирилл Сергеевич.");
                         Console.ReadKey();
                         break;
                     case "":
